@@ -1,18 +1,18 @@
 # if bin(int(ip)).count('1') % 5 != 0: 
-import ipaddress
+# import ipaddress
 
-ip_str = '172.16.168.0'
-print('ip: ', ip_str)
+# ip_str = '172.16.168.0'
+# print('ip: ', ip_str)
 
-ip = ipaddress.ip_address(ip_str)
-int_ip = int(ip)
-print('int_ip: ', int_ip)
+# ip = ipaddress.ip_address(ip_str)
+# int_ip = int(ip)
+# print('int_ip: ', int_ip)
 
-bin_ip = bin(int_ip)
-print('bin_ip: ', bin_ip)
+# bin_ip = bin(int_ip)
+# print('bin_ip: ', bin_ip)
 
-num = bin_ip.count('1')
-print(num)
+# num = bin_ip.count('1')
+# print(num)
 
 # ===================
 # Все IP адреса сети
