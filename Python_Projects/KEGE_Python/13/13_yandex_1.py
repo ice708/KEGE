@@ -5,23 +5,32 @@
 # В масках обеих подсетей одинаковое количество единиц.
 # Укажите наименьшее возможное количество единиц в масках этих подсетей.
 
-from ipaddress import *
+def ip_to_binary(ip):
+    return ''.join(format(int(i), '08b') for i in ip.split('.'))
 
+def find_mask(ip1, ip2):
+    binary_ip1 = ip_to_binary(ip1)
+    binary_ip2 = ip_to_binary(ip2)
 
-def get_subnet_mask(ip):
-    if ip.is_private:
-        if ip in ip_network('10.0.0.0/8'):
-            return '255.0.0.0'
-        elif ip in ip_network('172.16.0.0/12'):
-            return '255.240.0.0'
-        elif ip in ip_network('192.168.0.0/16'):
-            return '255.255.0.0'
-    return '255.255.255.255'  # Маска по умолчанию для публичных адресов
+    for mask in range(32):
+        binary_mask = '1' * mask + '0' * (32 - mask)
+        if (int(binary_ip1, 2) & int(binary_mask, 2)) != (int(binary_ip2, 2) & int(binary_mask, 2)):
+            return '.'.join(str(int(binary_mask[i:i+8], 2)) for i in range(0, 32, 8))
 
-ip1 = ip_address('151.172.115.121')
-mask = get_subnet_mask(ip1)
-print(f"Маска подсети для {ip1}: {mask}")
+def mask_to_binary(mask):
+    binary_mask = ''
+    for octet in mask.split('.'):
+        binary_octet = format(int(octet), '08b')
+        binary_mask += binary_octet
+    formatted_binary_mask = '.'.join([binary_mask[i:i+8] for i in range(0, 32, 8)])
+    return formatted_binary_mask, binary_mask.count('1')
 
-ip2 = ip_address('151.172.115.156')
-mask = get_subnet_mask(ip2)
-print(f"Маска подсети для {ip2}: {mask}")
+ip1 = '151.172.115.121'
+ip2 = '151.172.115.156'
+
+mask = find_mask(ip1, ip2)
+binary_mask, ones_count = mask_to_binary(mask)
+
+print(f'Маска сети: {mask}')
+print(f'Бинарная маска: {binary_mask}')
+print(f'Количество единиц: {ones_count}')
