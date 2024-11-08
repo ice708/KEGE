@@ -42,6 +42,6 @@ for x in range(ss):
             n3 += x * ss ** (len(num3) - i - 1)
 
     znachenie = n1 + n2 + n3    # выражение, которое дано по условию задачи
-    if znachenie % 21 == 0:
+    if znachenie % 21 == 0:     # ОСНОВНОЙ ВОПРОС ЗАДАЧИ
          print(znachenie // 21)
          break
