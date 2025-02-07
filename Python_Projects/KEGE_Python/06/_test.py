@@ -1,57 +1,35 @@
-import turtle
+# № 9829 Основная волна 27.06.23 (Уровень: Средний)
+# Направо 90
+# Повтори 3 [Направо 45 Вперёд 10 Направо 45]
+# Направо 315 Вперёд 10
+# Повтори 2 [Направо 90 Вперёд 10].
+from turtle import *
 
-# Функция для проверки, находится ли точка внутри многоугольника
-def is_point_in_polygon(x, y, polygon):
-    n = len(polygon)
-    inside = False
-    p1x, p1y = polygon[0]
-    for i in range(n + 1):
-        p2x, p2y = polygon[i % n]
-        if y > min(p1y, p2y):
-            if y <= max(p1y, p2y):
-                if x <= max(p1x, p2x):
-                    if p1y != p2y:
-                        xinters = (y - p1y) * (p2x - p1x) / (p2y - p1y) + p1x
-                    if p1x == p2x or x <= xinters:
-                        inside = not inside
-        p1x, p1y = p2x, p2y
-    return inside
+speed(0) # максимальная скорость рисования
+tracer(0) # отключить анимацию рисования
+screensize(1000, 1000)
+k = 5
 
-# Инициализация черепахи
-turtle.speed(0)  # Установить максимальную скорость
-turtle.penup()
-turtle.goto(-3, -4)  # Начальная позиция
-turtle.setheading(90)  # Направление вверх
-turtle.pendown()
+left(90)
 
-# Поворот направо на 30 градусов
-turtle.right(30)
+pd()
+right(90)
 
-# Список для хранения координат вершин многоугольника
-polygon = []
+for i in range(3):
+    right(45)
+    forward(10 * k)
+    right(45)
 
-# Повторяем 10 раз
-for _ in range(10):
-    # Движение вперед на 14
-    turtle.forward(14)
-    # Сохраняем текущую позицию
-    polygon.append(turtle.position())
-    # Поворот направо на 120 градусов
-    turtle.right(120)
+right(350)
+forward(10 * k)
 
-# Закрываем контур
-polygon.append(polygon[0])  # Добавляем первую точку в конец для замыкания
+for i in range(2):
+    right(90)
+    forward(10 * k)
 
-# Подсчет целочисленных точек с отрицательными координатами внутри многоугольника
-count = 0
-for x in range(-3, 1):  # x от -3 до 0 (включительно)
-    for y in range(-4, 1):  # y от -4 до 0 (включительно)
-        if is_point_in_polygon(x, y, polygon):
-            count += 1
+for x in range(-100, 100):
+    for y in range(-100, 100):
+        goto(x * k, y * k)
+        dot(5)
 
-# Вывод результата
-print("Количество целочисленных точек с отрицательными координатами внутри контура:", count)
-
-# Завершение работы turtle
-turtle.done()
-print(count)
+done()

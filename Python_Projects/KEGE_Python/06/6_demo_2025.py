@@ -1,6 +1,5 @@
 from turtle import *
 
-
 # pd() или pendown() - опустить хвост (перо)
 # pu() или penup() - поднять хвост (перо)
 # 

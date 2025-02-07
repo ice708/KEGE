@@ -1,15 +1,16 @@
-n = 4
-count = 0
-maximum = 0
-for i in range(1, n + 1):
-    x = int(input())
-    if x % 2 != 0:
-        count += 1
-        if x > maximum:
-            maximum = i
-            break
-if count > 0:
-    print(count)
-    print(maximum)
-else:
-    print('NO')
+def read_numbers_from_file(filename):
+    try:
+        with open(filename, 'r') as file:
+            numbers = [int(line.strip()) for line in file]
+        return numbers
+    except FileNotFoundError:
+        print(f"Файл {filename} не найден.")
+        return []
+    except ValueError:
+        print(f"В файле {filename} содержатся не только числа.")
+        return []
+
+# Пример использования
+filename = 'C:\Users\Kirill\Documents\GitHub_repo\KEGE\Python_Projects\input.txt'
+numbers = read_numbers_from_file(filename)
+print(numbers)
